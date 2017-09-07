@@ -25946,7 +25946,7 @@ exports.Home = _Home2.default;
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -25954,6 +25954,26 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(8);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _Header = __webpack_require__(87);
+
+var _Header2 = _interopRequireDefault(_Header);
+
+var _Footer = __webpack_require__(51);
+
+var _Footer2 = _interopRequireDefault(_Footer);
+
+var _Sidebar = __webpack_require__(88);
+
+var _Sidebar2 = _interopRequireDefault(_Sidebar);
+
+var _Feature = __webpack_require__(92);
+
+var _Feature2 = _interopRequireDefault(_Feature);
+
+var _Post = __webpack_require__(93);
+
+var _Post2 = _interopRequireDefault(_Post);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25964,26 +25984,124 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Home = function (_Component) {
-	_inherits(Home, _Component);
+  _inherits(Home, _Component);
 
-	function Home() {
-		_classCallCheck(this, Home);
+  function Home() {
+    _classCallCheck(this, Home);
 
-		return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
-	}
+    return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
+  }
 
-	_createClass(Home, [{
-		key: 'render',
-		value: function render() {
-			return _react2.default.createElement(
-				'div',
-				null,
-				'This is Home component.'
-			);
-		}
-	}]);
+  _createClass(Home, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { id: 'wrapper' },
+        _react2.default.createElement(
+          'div',
+          { id: 'main' },
+          _react2.default.createElement(
+            'div',
+            { className: 'inner' },
+            _react2.default.createElement(_Header2.default, null),
+            _react2.default.createElement(
+              'section',
+              { id: 'banner' },
+              _react2.default.createElement(
+                'div',
+                { className: 'content' },
+                _react2.default.createElement(
+                  'header',
+                  null,
+                  _react2.default.createElement(
+                    'h1',
+                    null,
+                    'Welcome to',
+                    _react2.default.createElement('br', null),
+                    'NewsFeed'
+                  ),
+                  _react2.default.createElement(
+                    'p',
+                    null,
+                    'A free and fully responsive site template'
+                  )
+                ),
+                _react2.default.createElement(
+                  'p',
+                  null,
+                  'Aenean ornare velit lacus, ac varius enim ullamcorper eu. Proin aliquam facilisis ante interdum congue. Integer mollis, nisl amet convallis, porttitor magna ullamcorper, amet egestas mauris. Ut magna finibus nisi nec lacinia. Nam maximus erat id euismod egestas. Pellentesque sapien ac quam. Lorem ipsum dolor sit nullam.'
+                ),
+                _react2.default.createElement(
+                  'ul',
+                  { className: 'actions' },
+                  _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                      'a',
+                      { href: '#', className: 'button big' },
+                      'Learn More'
+                    )
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                'span',
+                { className: 'image object' },
+                _react2.default.createElement('img', { src: 'https://placehold.it/736x512', alt: '' })
+              )
+            ),
+            _react2.default.createElement(
+              'section',
+              null,
+              _react2.default.createElement(
+                'header',
+                { className: 'major' },
+                _react2.default.createElement(
+                  'h2',
+                  null,
+                  'Erat lacinia'
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'features' },
+                _react2.default.createElement(_Feature2.default, { icon: 'icon fa-diamond' }),
+                _react2.default.createElement(_Feature2.default, { icon: 'icon fa-paper-plane' }),
+                _react2.default.createElement(_Feature2.default, { icon: 'icon fa-rocket' }),
+                _react2.default.createElement(_Feature2.default, { icon: 'icon fa-signal' })
+              )
+            ),
+            _react2.default.createElement(
+              'section',
+              null,
+              _react2.default.createElement(
+                'header',
+                { className: 'major' },
+                _react2.default.createElement(
+                  'h2',
+                  null,
+                  'Ipsum sed dolor'
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'posts' },
+                _react2.default.createElement(_Post2.default, null),
+                _react2.default.createElement(_Post2.default, null),
+                _react2.default.createElement(_Post2.default, null),
+                _react2.default.createElement(_Post2.default, null)
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(_Sidebar2.default, null)
+      );
+    }
+  }]);
 
-	return Home;
+  return Home;
 }(_react.Component);
 
 exports.default = Home;
