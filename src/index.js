@@ -24,6 +24,7 @@ import ReactDOM from 'react-dom'
 import { Elements } from './theme'
 import { Provider } from 'react-redux'
 import store from './stores'
+import { Home } from './pages'
 
 /* The Elements components is a summary of basic presentation componets
  * available for use in this theme
@@ -31,7 +32,7 @@ import store from './stores'
 
 const app = (
   <Provider store={store.configure(null)}>
-    <Elements />
+    <Home />
   </Provider>	
 )
 
