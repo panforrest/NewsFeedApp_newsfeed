@@ -25955,25 +25955,9 @@ var _react = __webpack_require__(8);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Header = __webpack_require__(87);
-
-var _Header2 = _interopRequireDefault(_Header);
-
-var _Footer = __webpack_require__(51);
-
-var _Footer2 = _interopRequireDefault(_Footer);
-
 var _Sidebar = __webpack_require__(88);
 
 var _Sidebar2 = _interopRequireDefault(_Sidebar);
-
-var _Feature = __webpack_require__(92);
-
-var _Feature2 = _interopRequireDefault(_Feature);
-
-var _Post = __webpack_require__(93);
-
-var _Post2 = _interopRequireDefault(_Post);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26004,7 +25988,6 @@ var Home = function (_Component) {
           _react2.default.createElement(
             'div',
             { className: 'inner' },
-            _react2.default.createElement(_Header2.default, null),
             _react2.default.createElement(
               'section',
               { id: 'banner' },
@@ -26017,10 +26000,9 @@ var Home = function (_Component) {
                   _react2.default.createElement(
                     'h1',
                     null,
-                    'Welcome to',
-                    _react2.default.createElement('br', null),
-                    'NewsFeed'
+                    'Welcome to NewsFeed'
                   ),
+                  _react2.default.createElement('hr', null),
                   _react2.default.createElement(
                     'p',
                     null,
@@ -26045,53 +26027,6 @@ var Home = function (_Component) {
                     )
                   )
                 )
-              ),
-              _react2.default.createElement(
-                'span',
-                { className: 'image object' },
-                _react2.default.createElement('img', { src: 'https://placehold.it/736x512', alt: '' })
-              )
-            ),
-            _react2.default.createElement(
-              'section',
-              null,
-              _react2.default.createElement(
-                'header',
-                { className: 'major' },
-                _react2.default.createElement(
-                  'h2',
-                  null,
-                  'Erat lacinia'
-                )
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'features' },
-                _react2.default.createElement(_Feature2.default, { icon: 'icon fa-diamond' }),
-                _react2.default.createElement(_Feature2.default, { icon: 'icon fa-paper-plane' }),
-                _react2.default.createElement(_Feature2.default, { icon: 'icon fa-rocket' }),
-                _react2.default.createElement(_Feature2.default, { icon: 'icon fa-signal' })
-              )
-            ),
-            _react2.default.createElement(
-              'section',
-              null,
-              _react2.default.createElement(
-                'header',
-                { className: 'major' },
-                _react2.default.createElement(
-                  'h2',
-                  null,
-                  'Ipsum sed dolor'
-                )
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'posts' },
-                _react2.default.createElement(_Post2.default, null),
-                _react2.default.createElement(_Post2.default, null),
-                _react2.default.createElement(_Post2.default, null),
-                _react2.default.createElement(_Post2.default, null)
               )
             )
           )
