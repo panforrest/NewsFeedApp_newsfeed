@@ -26069,7 +26069,7 @@ exports.Sidebar = _Sidebar2.default;
 
 
 Object.defineProperty(exports, "__esModule", {
-											value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -26087,127 +26087,148 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Sidebar = function (_Component) {
-											_inherits(Sidebar, _Component);
+  _inherits(Sidebar, _Component);
 
-											function Sidebar() {
-																						_classCallCheck(this, Sidebar);
+  function Sidebar() {
+    _classCallCheck(this, Sidebar);
 
-																						return _possibleConstructorReturn(this, (Sidebar.__proto__ || Object.getPrototypeOf(Sidebar)).apply(this, arguments));
-											}
+    var _this = _possibleConstructorReturn(this, (Sidebar.__proto__ || Object.getPrototypeOf(Sidebar)).call(this));
 
-											_createClass(Sidebar, [{
-																						key: "render",
-																						value: function render() {
-																																	return _react2.default.createElement(
-																																												"div",
-																																												{ id: "sidebar" },
-																																												_react2.default.createElement(
-																																																							"div",
-																																																							{ className: "inner" },
-																																																							_react2.default.createElement(
-																																																																		"section",
-																																																																		{ id: "search", className: "alt" },
-																																																																		_react2.default.createElement(
-																																																																													"form",
-																																																																													{ method: "post", action: "#" },
-																																																																													_react2.default.createElement("input", { type: "text", name: "query", id: "query", placeholder: "Search" })
-																																																																		)
-																																																							),
-																																																							_react2.default.createElement(
-																																																																		"nav",
-																																																																		{ id: "menu" },
-																																																																		_react2.default.createElement(
-																																																																													"header",
-																																																																													{ className: "major" },
-																																																																													_react2.default.createElement(
-																																																																																								"h2",
-																																																																																								null,
-																																																																																								"My Feeds"
-																																																																													)
-																																																																		),
-																																																																		_react2.default.createElement(
-																																																																													"ul",
-																																																																													null,
-																																																																													_react2.default.createElement(
-																																																																																								"li",
-																																																																																								null,
-																																																																																								_react2.default.createElement(
-																																																																																																			"a",
-																																																																																																			{ href: "index.html" },
-																																																																																																			"Hacker News"
-																																																																																								)
-																																																																													),
-																																																																													_react2.default.createElement(
-																																																																																								"li",
-																																																																																								null,
-																																																																																								_react2.default.createElement(
-																																																																																																			"a",
-																																																																																																			{ href: "generic.html" },
-																																																																																																			"NY Daily Sports News"
-																																																																																								)
-																																																																													),
-																																																																													_react2.default.createElement(
-																																																																																								"li",
-																																																																																								null,
-																																																																																								_react2.default.createElement(
-																																																																																																			"a",
-																																																																																																			{ href: "elements.html" },
-																																																																																																			"Elements"
-																																																																																								)
-																																																																													),
-																																																																													_react2.default.createElement(
-																																																																																								"li",
-																																																																																								null,
-																																																																																								_react2.default.createElement(
-																																																																																																			"a",
-																																																																																																			{ href: "#" },
-																																																																																																			"Etiam Dolore"
-																																																																																								)
-																																																																													),
-																																																																													_react2.default.createElement(
-																																																																																								"li",
-																																																																																								null,
-																																																																																								_react2.default.createElement(
-																																																																																																			"a",
-																																																																																																			{ href: "#" },
-																																																																																																			"Adipiscing"
-																																																																																								)
-																																																																													),
-																																																																													_react2.default.createElement(
-																																																																																								"li",
-																																																																																								null,
-																																																																																								_react2.default.createElement(
-																																																																																																			"a",
-																																																																																																			{ href: "#" },
-																																																																																																			"Maximus Erat"
-																																																																																								)
-																																																																													),
-																																																																													_react2.default.createElement(
-																																																																																								"li",
-																																																																																								null,
-																																																																																								_react2.default.createElement(
-																																																																																																			"a",
-																																																																																																			{ href: "#" },
-																																																																																																			"Sapien Mauris"
-																																																																																								)
-																																																																													),
-																																																																													_react2.default.createElement(
-																																																																																								"li",
-																																																																																								null,
-																																																																																								_react2.default.createElement(
-																																																																																																			"a",
-																																																																																																			{ href: "#" },
-																																																																																																			"Amet Lacinia"
-																																																																																								)
-																																																																													)
-																																																																		)
-																																																							)
-																																												)
-																																	);
-																						}
-											}]);
+    _this.state = {
+      feed: {
+        name: '',
+        url: ''
+      }
+    };
+    return _this;
+  }
 
-											return Sidebar;
+  _createClass(Sidebar, [{
+    key: 'updateFeed',
+    value: function updateFeed(field, event) {
+      console.log('updateFeed: ' + field + '==' + event.target.value);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { id: 'sidebar' },
+        _react2.default.createElement(
+          'div',
+          { className: 'inner' },
+          _react2.default.createElement(
+            'section',
+            { id: 'search', className: 'alt' },
+            _react2.default.createElement(
+              'form',
+              { method: 'post', action: '#' },
+              _react2.default.createElement('input', { type: 'text', onChange: this.updateFeed.bind(this, 'name'), name: 'query', id: 'query', placeholder: 'Search' }),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('input', { type: 'text', onChange: this.updateFeed.bind(this, 'url'), name: 'query', id: 'query', placeholder: 'Feed URL' }),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement(
+                'button',
+                null,
+                'Add Feed'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'nav',
+            { id: 'menu' },
+            _react2.default.createElement(
+              'header',
+              { className: 'major' },
+              _react2.default.createElement(
+                'h2',
+                null,
+                'My Feeds'
+              )
+            ),
+            _react2.default.createElement(
+              'ul',
+              null,
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'a',
+                  { href: 'index.html' },
+                  'Hacker News'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'a',
+                  { href: 'generic.html' },
+                  'NY Daily Sports News'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'a',
+                  { href: 'elements.html' },
+                  'Elements'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'a',
+                  { href: '#' },
+                  'Etiam Dolore'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'a',
+                  { href: '#' },
+                  'Adipiscing'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'a',
+                  { href: '#' },
+                  'Maximus Erat'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'a',
+                  { href: '#' },
+                  'Sapien Mauris'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'a',
+                  { href: '#' },
+                  'Amet Lacinia'
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return Sidebar;
 }(_react.Component);
 
 exports.default = Sidebar;

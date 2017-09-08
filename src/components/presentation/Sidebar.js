@@ -1,14 +1,29 @@
 import React, { Component } from 'react'
 
 class Sidebar extends Component{
+  constructor(){
+  	super()
+  	this.state = {
+	  feed: {
+	  	name: '',
+        url: ''
+	  } 
+  	}
+  }
   
+  updateFeed(field, event){
+    console.log('updateFeed: ' + field + '==' +event.target.value)
+  }
+
   render(){
   	return(
 	  <div id="sidebar">
 	    <div className="inner">
 	        <section id="search" className="alt">
                 <form method="post" action="#">
-                	<input type="text" name="query" id="query" placeholder="Search" />
+                	<input type="text" onChange={this.updateFeed.bind(this, 'name')} name="query" id="query" placeholder="Search" /><br />
+                	<input type="text" onChange={this.updateFeed.bind(this, 'url')} name="query" id="query" placeholder="Feed URL" /><br />
+                	<button>Add Feed</button>
                 </form>
             </section>
 	        
