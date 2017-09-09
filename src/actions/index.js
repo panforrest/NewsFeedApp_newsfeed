@@ -9,28 +9,34 @@ export default {
 		}
 	},
 
-	fetchUsers: (params) => {
+	addFeed: (params) => {
 		return dispatch => {
-			return dispatch(TurboClient.getRequest('user', params, constants.USERS_RECEIVED))
+			return dispatch(TurboClient.postRequest('feed', params, constants.FEED_CREATED))
 		}
 	},
 
-	addUser: (params) => {
-		return dispatch => {
-			return dispatch(TurboClient.postRequest('user', params, constants.USER_CREATED))
-		}
-	},
+	// fetchUsers: (params) => {
+	// 	return dispatch => {
+	// 		return dispatch(TurboClient.getRequest('user', params, constants.USERS_RECEIVED))
+	// 	}
+	// },
 
-	loginUser: (credentials) => {
-		return dispatch => {
-			return dispatch(TurboClient.login(credentials, constants.CURRENT_USER_RECEIVED))
-		}
-	},
+	// addUser: (params) => {
+	// 	return dispatch => {
+	// 		return dispatch(TurboClient.postRequest('user', params, constants.USER_CREATED))
+	// 	}
+	// },
 
-	currentUser: () => {
-		return dispatch => {
-			return dispatch(TurboClient.currentUser(constants.CURRENT_USER_RECEIVED))
-		}
-	}
+	// loginUser: (credentials) => {
+	// 	return dispatch => {
+	// 		return dispatch(TurboClient.login(credentials, constants.CURRENT_USER_RECEIVED))
+	// 	}
+	// },
+
+	// currentUser: () => {
+	// 	return dispatch => {
+	// 		return dispatch(TurboClient.currentUser(constants.CURRENT_USER_RECEIVED))
+	// 	}
+	// }
 	
 }

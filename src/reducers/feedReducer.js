@@ -14,6 +14,13 @@ export default (state = initialState, action) => {
 			newState['all'] = action.data
 			return newState
 
+		case constants.FEED_CREATED:
+		    console.log('REDUCER FEED_CREATED: '+JSON.stringify(action.data))
+			let array = (newState.all) ? Object.assign([], newState.all) : []
+			array.unshift(action.data)
+			newState['all'] = array
+			return newState
+
 		default:
 			return state
 	}

@@ -13194,7 +13194,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = {
 	FEEDS_RECEIVED: 'FEEDS_RECEIVED',
-
+	FEED_CREATED: 'FEED_CREATED',
 	USERS_RECEIVED: 'USERS_RECEIVED',
 	USER_CREATED: 'USER_CREATED',
 	USER_LOGGED_IN: 'USER_LOGGED_IN',
@@ -31474,6 +31474,13 @@ exports.default = function () {
 			newState['all'] = action.data;
 			return newState;
 
+		case _constants2.default.FEED_CREATED:
+			console.log('REDUCER FEED_CREATED: ' + JSON.stringify(action.data));
+			var array = newState.all ? Object.assign([], newState.all) : [];
+			array.unshift(action.data);
+			newState['all'] = array;
+			return newState;
+
 		default:
 			return state;
 	}
@@ -31655,18 +31662,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // method="post" action="#"
-// <div id="sidebar">
-
-// <ul>
-//   {this.props.feed.all.map((feed, i) => {
-//       return <li key={feed.id}><a href="#">{feed.name}</a></li>
-//     })
-
-//   }
-// </ul>
-
-// import { Post } from '../../theme'
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Sidebar = function (_Component) {
   _inherits(Sidebar, _Component);
@@ -31677,7 +31673,7 @@ var Sidebar = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Sidebar.__proto__ || Object.getPrototypeOf(Sidebar)).call(this));
 
     _this.state = {
-      feeds: [],
+      // feeds: [],
       feed: {
         name: '',
         url: ''
@@ -31726,20 +31722,33 @@ var Sidebar = function (_Component) {
 
       event.preventDefault();
       console.log('addFeed: ' + JSON.stringify(this.state.feed));
-
-      var turboClient = (0, _turbo2.default)({ site_id: '59b26cf0506af30012a0fd2d' });
-
-      turboClient.create('feed', this.state.feed).then(function (data) {
+      this.props.addFeed(this.state.feed).then(function (data) {
         console.log('FEED CREATED: ' + JSON.stringify(data));
-
-        var feeds = Object.assign([], _this2.state.feeds);
-        feeds.unshift(data);
         _this2.setState({
-          feeds: feeds
+          feed: {
+            name: '',
+            url: ''
+          }
         });
       }).catch(function (err) {
-        alert('Error: ' + err.message);
+        console.log('Error message: ' + err.message);
       });
+
+      // var turboClient = turbo({site_id:'59b26cf0506af30012a0fd2d'})
+
+      // turboClient.create('feed', this.state.feed)
+      // .then(data => {
+      //   console.log('FEED CREATED: ' + JSON.stringify(data))
+
+      //   let feeds = Object.assign([], this.state.feeds)
+      //   feeds.unshift(data)
+      //   this.setState({
+      //     feeds: feeds
+      //   })
+      // })
+      // .catch(err => {
+      //   alert('Error: ' + err.message)
+      // })
     }
   }, {
     key: 'render',
@@ -31768,9 +31777,9 @@ var Sidebar = function (_Component) {
             _react2.default.createElement(
               'form',
               { method: 'post', action: '#' },
-              _react2.default.createElement('input', { type: 'text', onChange: this.updateFeed.bind(this, 'name'), name: 'query', placeholder: 'Search' }),
+              _react2.default.createElement('input', { type: 'text', onChange: this.updateFeed.bind(this, 'name'), value: this.state.feed.name, name: 'query', placeholder: 'Search' }),
               _react2.default.createElement('br', null),
-              _react2.default.createElement('input', { type: 'text', onChange: this.updateFeed.bind(this, 'url'), name: 'query', placeholder: 'Feed URL' }),
+              _react2.default.createElement('input', { type: 'text', onChange: this.updateFeed.bind(this, 'url'), value: this.state.feed.url, name: 'query', placeholder: 'Feed URL' }),
               _react2.default.createElement('br', null),
               _react2.default.createElement(
                 'button',
@@ -31815,7 +31824,10 @@ var dispatchToProps = function dispatchToProps(dispatch) {
   return {
     fetchFeeds: function fetchFeeds(params) {
       return dispatch(_actions2.default.fetchFeeds(params));
-    } //fetchFeeds: (feeds) => dispatch(actions.fetchFeeds(feeds))
+    },
+    addFeed: function addFeed(params) {
+      return dispatch(_actions2.default.addFeed(params));
+    }
   };
 };
 exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Sidebar);
@@ -33153,29 +33165,35 @@ exports.default = {
 		};
 	},
 
-	fetchUsers: function fetchUsers(params) {
+	addFeed: function addFeed(params) {
 		return function (dispatch) {
-			return dispatch(_utils.TurboClient.getRequest('user', params, _constants2.default.USERS_RECEIVED));
-		};
-	},
-
-	addUser: function addUser(params) {
-		return function (dispatch) {
-			return dispatch(_utils.TurboClient.postRequest('user', params, _constants2.default.USER_CREATED));
-		};
-	},
-
-	loginUser: function loginUser(credentials) {
-		return function (dispatch) {
-			return dispatch(_utils.TurboClient.login(credentials, _constants2.default.CURRENT_USER_RECEIVED));
-		};
-	},
-
-	currentUser: function currentUser() {
-		return function (dispatch) {
-			return dispatch(_utils.TurboClient.currentUser(_constants2.default.CURRENT_USER_RECEIVED));
+			return dispatch(_utils.TurboClient.postRequest('feed', params, _constants2.default.FEED_CREATED));
 		};
 	}
+
+	// fetchUsers: (params) => {
+	// 	return dispatch => {
+	// 		return dispatch(TurboClient.getRequest('user', params, constants.USERS_RECEIVED))
+	// 	}
+	// },
+
+	// addUser: (params) => {
+	// 	return dispatch => {
+	// 		return dispatch(TurboClient.postRequest('user', params, constants.USER_CREATED))
+	// 	}
+	// },
+
+	// loginUser: (credentials) => {
+	// 	return dispatch => {
+	// 		return dispatch(TurboClient.login(credentials, constants.CURRENT_USER_RECEIVED))
+	// 	}
+	// },
+
+	// currentUser: () => {
+	// 	return dispatch => {
+	// 		return dispatch(TurboClient.currentUser(constants.CURRENT_USER_RECEIVED))
+	// 	}
+	// }
 
 };
 

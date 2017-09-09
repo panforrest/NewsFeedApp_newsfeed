@@ -1,29 +1,17 @@
-// method="post" action="#"
-    // <div id="sidebar">
-
-              // <ul>
-              //   {this.props.feed.all.map((feed, i) => {
-              //       return <li key={feed.id}><a href="#">{feed.name}</a></li>
-              //     })
-
-              //   }
-              // </ul>
-
 import turbo from 'turbo360'    
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import actions from '../../actions'
-// import { Post } from '../../theme'
 
 class Sidebar extends Component{
   constructor(){
   	super()
   	this.state = {
-      feeds: [],
+      // feeds: [],
 	    feed: {
 	  	name: '',
         url: ''
-	  } 
+	    } 
   	}
   }
 
@@ -63,22 +51,35 @@ class Sidebar extends Component{
   addFeed(event){
   	event.preventDefault()
   	console.log('addFeed: '+JSON.stringify(this.state.feed))
-
-    var turboClient = turbo({site_id:'59b26cf0506af30012a0fd2d'})
-
-    turboClient.create('feed', this.state.feed)
+    this.props.addFeed(this.state.feed)
     .then(data => {
       console.log('FEED CREATED: ' + JSON.stringify(data))
-
-      let feeds = Object.assign([], this.state.feeds)
-      feeds.unshift(data)
       this.setState({
-        feeds: feeds
+        feed: {
+          name: '',
+          url: ''
+        }         
       })
     })
     .catch(err => {
-      alert('Error: ' + err.message)
+      console.log('Error message: ' + err.message)
     })
+
+    // var turboClient = turbo({site_id:'59b26cf0506af30012a0fd2d'})
+
+    // turboClient.create('feed', this.state.feed)
+    // .then(data => {
+    //   console.log('FEED CREATED: ' + JSON.stringify(data))
+
+    //   let feeds = Object.assign([], this.state.feeds)
+    //   feeds.unshift(data)
+    //   this.setState({
+    //     feeds: feeds
+    //   })
+    // })
+    // .catch(err => {
+    //   alert('Error: ' + err.message)
+    // })
   }
 
   render(){
@@ -91,8 +92,8 @@ class Sidebar extends Component{
 	    <div className="inner">
 	        <section id="search" className="alt">
                 <form method="post" action="#">
-                	<input type="text" onChange={this.updateFeed.bind(this, 'name')} name="query" placeholder="Search" /><br />
-                	<input type="text" onChange={this.updateFeed.bind(this, 'url')} name="query" placeholder="Feed URL" /><br />
+                	<input type="text" onChange={this.updateFeed.bind(this, 'name')} value={this.state.feed.name} name="query" placeholder="Search" /><br />
+                	<input type="text" onChange={this.updateFeed.bind(this, 'url')} value={this.state.feed.url} name="query" placeholder="Feed URL" /><br />
                 	<button type="submit" onClick={this.addFeed.bind(this)}>Add Feed</button>
                 </form>
             </section>
@@ -123,7 +124,8 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
   return {
-    fetchFeeds: (params) => dispatch(actions.fetchFeeds(params))  //fetchFeeds: (feeds) => dispatch(actions.fetchFeeds(feeds))
+    fetchFeeds: (params) => dispatch(actions.fetchFeeds(params)),  
+    addFeed: (params) => dispatch(actions.addFeed(params))
   }
 }
 export default connect(stateToProps, dispatchToProps)(Sidebar)
