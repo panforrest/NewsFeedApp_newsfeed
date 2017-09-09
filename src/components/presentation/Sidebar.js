@@ -15,9 +15,24 @@ class Sidebar extends Component{
 	  } 
   	}
   }
+
+  componentDidMount(){
+    // console.log('componentDidMount: ')
+    var turboClient = turbo({site_id:'59b26cf0506af30012a0fd2d'})
+    turboClient.fetch('feed', null)
+    .then(data => {
+      // console.log('FEEDS FETCHED: ' + JSON.stringify(data))
+      this.setState({   //I WAS NOT ABLE TO FIGURE OUT "BINDING TO STATE"
+        feeds: data
+      })
+    })
+    .catch(err => {
+      alert('Error: ' + err.message)
+    })
+  }
   
   updateFeed(field, event){
-    console.log('updateFeed: ' + field + '==' +event.target.value)
+    // console.log('updateFeed: ' + field + '==' +event.target.value)
     let feed = Object.assign({}, this.state.feed)
     feed[field] = event.target.value  //feed(field) = event.target.value
     this.setState({
@@ -36,7 +51,7 @@ class Sidebar extends Component{
       console.log('FEED CREATED: ' + JSON.stringify(data))
 
       let feeds = Object.assign([], this.state.feeds)
-      feeds.push(data)
+      feeds.unshift(data)
       this.setState({
         feeds: feeds
       })

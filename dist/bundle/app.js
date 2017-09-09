@@ -25061,9 +25061,25 @@ var Sidebar = function (_Component) {
   }
 
   _createClass(Sidebar, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      // console.log('componentDidMount: ')
+      var turboClient = (0, _turbo2.default)({ site_id: '59b26cf0506af30012a0fd2d' });
+      turboClient.fetch('feed', null).then(function (data) {
+        // console.log('FEEDS FETCHED: ' + JSON.stringify(data))
+        _this2.setState({ //I WAS NOT ABLE TO FIGURE OUT "BINDING TO STATE"
+          feeds: data
+        });
+      }).catch(function (err) {
+        alert('Error: ' + err.message);
+      });
+    }
+  }, {
     key: 'updateFeed',
     value: function updateFeed(field, event) {
-      console.log('updateFeed: ' + field + '==' + event.target.value);
+      // console.log('updateFeed: ' + field + '==' +event.target.value)
       var feed = Object.assign({}, this.state.feed);
       feed[field] = event.target.value; //feed(field) = event.target.value
       this.setState({
@@ -25073,7 +25089,7 @@ var Sidebar = function (_Component) {
   }, {
     key: 'addFeed',
     value: function addFeed(event) {
-      var _this2 = this;
+      var _this3 = this;
 
       event.preventDefault();
       console.log('addFeed: ' + JSON.stringify(this.state.feed));
@@ -25083,9 +25099,9 @@ var Sidebar = function (_Component) {
       turboClient.create('feed', this.state.feed).then(function (data) {
         console.log('FEED CREATED: ' + JSON.stringify(data));
 
-        var feeds = Object.assign([], _this2.state.feeds);
-        feeds.push(data);
-        _this2.setState({
+        var feeds = Object.assign([], _this3.state.feeds);
+        feeds.unshift(data);
+        _this3.setState({
           feeds: feeds
         });
       }).catch(function (err) {
