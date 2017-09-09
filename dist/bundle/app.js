@@ -25051,6 +25051,7 @@ var Sidebar = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Sidebar.__proto__ || Object.getPrototypeOf(Sidebar)).call(this));
 
     _this.state = {
+      feeds: [],
       feed: {
         name: '',
         url: ''
@@ -25072,6 +25073,8 @@ var Sidebar = function (_Component) {
   }, {
     key: 'addFeed',
     value: function addFeed(event) {
+      var _this2 = this;
+
       event.preventDefault();
       console.log('addFeed: ' + JSON.stringify(this.state.feed));
 
@@ -25079,6 +25082,12 @@ var Sidebar = function (_Component) {
 
       turboClient.create('feed', this.state.feed).then(function (data) {
         console.log('FEED CREATED: ' + JSON.stringify(data));
+
+        var feeds = Object.assign([], _this2.state.feeds);
+        feeds.push(data);
+        _this2.setState({
+          feeds: feeds
+        });
       }).catch(function (err) {
         alert('Error: ' + err.message);
       });
@@ -25124,78 +25133,17 @@ var Sidebar = function (_Component) {
             _react2.default.createElement(
               'ul',
               null,
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  'a',
-                  { href: 'index.html' },
-                  'Hacker News'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  'a',
-                  { href: 'generic.html' },
-                  'NY Daily Sports News'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  'a',
-                  { href: 'elements.html' },
-                  'Elements'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  'a',
-                  { href: '#' },
-                  'Etiam Dolore'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  'a',
-                  { href: '#' },
-                  'Adipiscing'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  'a',
-                  { href: '#' },
-                  'Maximus Erat'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  'a',
-                  { href: '#' },
-                  'Sapien Mauris'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  'a',
-                  { href: '#' },
-                  'Amet Lacinia'
-                )
-              )
+              this.state.feeds.map(function (feed, i) {
+                return _react2.default.createElement(
+                  'li',
+                  { key: feed.id },
+                  _react2.default.createElement(
+                    'a',
+                    { href: '#' },
+                    feed.name
+                  )
+                );
+              })
             )
           )
         )
