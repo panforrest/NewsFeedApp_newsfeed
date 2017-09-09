@@ -1,7 +1,18 @@
 // method="post" action="#"
     // <div id="sidebar">
+
+              // <ul>
+              //   {this.props.feed.all.map((feed, i) => {
+              //       return <li key={feed.id}><a href="#">{feed.name}</a></li>
+              //     })
+
+              //   }
+              // </ul>
+
 import turbo from 'turbo360'    
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import actions from '../../actions'
 // import { Post } from '../../theme'
 
 class Sidebar extends Component{
@@ -17,18 +28,27 @@ class Sidebar extends Component{
   }
 
   componentDidMount(){
-    // console.log('componentDidMount: ')
-    var turboClient = turbo({site_id:'59b26cf0506af30012a0fd2d'})
-    turboClient.fetch('feed', null)
+    this.props.fetchFeeds(null)
     .then(data => {
-      // console.log('FEEDS FETCHED: ' + JSON.stringify(data))
-      this.setState({   //I WAS NOT ABLE TO FIGURE OUT "BINDING TO STATE"
-        feeds: data
-      })
+      console.log('FEEDS: ' + JSON.stringify(data))
     })
     .catch(err => {
-      alert('Error: ' + err.message)
+      console.log('Error: ' + err.message)
     })
+
+    //MY SOLUTION BELOW NOT WORK
+    // var turboClient = turbo({site_id:'59b26cf0506af30012a0fd2d'})
+    // turboClient.fetch('feed', null)
+    // .then(data => {
+    //   console.log('FEEDS FETCHED: ' + JSON.stringify(data))
+    //   // this.setState({   //I WAS NOT ABLE TO FIGURE OUT "BINDING TO STATE"
+    //   //   feeds: data
+    //   // })
+    //   this.props.fetchFeeds(data)
+    // })
+    // .catch(err => {
+    //   alert('Error: ' + err.message)
+    // })
   }
   
   updateFeed(field, event){
@@ -62,6 +82,10 @@ class Sidebar extends Component{
   }
 
   render(){
+    const list = (this.props.feed.all == null) ? null : (this.props.feed.all.map((feed, i) => {
+                    return <li key={feed.id}><a href="#">{feed.name}</a></li>
+                  })) 
+
   	return(
 	  <div>
 	    <div className="inner">
@@ -78,16 +102,12 @@ class Sidebar extends Component{
 	            <header className="major">
 	                <h2>My Feeds</h2>
 	            </header>
-	            <ul>
-	              {this.state.feeds.map((feed, i) => {
-                    return <li key={feed.id}><a href="#">{feed.name}</a></li>
-                  })
 
-                }
-	            </ul>
             </nav>	
 
-
+              <ul>
+                {list}
+              </ul>
 
 	    </div>
 	  </div>
@@ -95,4 +115,15 @@ class Sidebar extends Component{
   }
 }
 
-export default Sidebar
+const stateToProps = (state) => {
+  return {
+    feed: state.feed
+  }
+}
+
+const dispatchToProps = (dispatch) => {
+  return {
+    fetchFeeds: (params) => dispatch(actions.fetchFeeds(params))  //fetchFeeds: (feeds) => dispatch(actions.fetchFeeds(feeds))
+  }
+}
+export default connect(stateToProps, dispatchToProps)(Sidebar)
