@@ -1,5 +1,6 @@
 // method="post" action="#"
     // <div id="sidebar">
+import turbo from 'turbo360'    
 import React, { Component } from 'react'
 // import { Post } from '../../theme'
 
@@ -26,6 +27,16 @@ class Sidebar extends Component{
   addFeed(event){
   	event.preventDefault()
   	console.log('addFeed: '+JSON.stringify(this.state.feed))
+
+    var turboClient = turbo({site_id:'59b26cf0506af30012a0fd2d'})
+    
+    turboClient.create('feed', this.state.feed)
+    .then(data => {
+      console.log('FEED CREATED: ' + JSON.stringify(data))
+    })
+    .catch(err => {
+      alert('Error: ' + err.message)
+    })
   }
 
   render(){
