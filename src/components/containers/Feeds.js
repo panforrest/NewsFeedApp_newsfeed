@@ -21,13 +21,20 @@ class Feeds extends Component {
     })
   }
 
+  selectFeed(feed, event){
+    event.preventDefault()
+    console.log('selectFeed: '+JSON.stringify(feed))
+    this.props.feedSelected(feed)
+  }
+
   render(){
   	const feeds = this.props.feed.all || []
   	return(
 
       <ul>
         {feeds.map((feed, i) =>{
-            return <li key={feed.id}><a href="#">{feed.name}</a></li>
+            const color = (feed == this.props.feed.selectedFeed) ? 'red' : '#333'
+            return <li key={feed.id}><a style={{color:color}} onClick={this.selectFeed.bind(this, feed)} href="#">{feed.name}</a></li>
           }
         )}
       </ul>
@@ -38,14 +45,16 @@ class Feeds extends Component {
 
 const stateToProps = (state) => {
   return {
-    feed: state.feed
+    feed: state.feed,
+    selectedFeed: state.feed.selectedFeed
   }
 }
 
 const dispatchToProps = (dispatch) => {
   return {
     fetchFeeds: (params) => dispatch(actions.fetchFeeds(params)),  
-    addFeed: (params) => dispatch(actions.addFeed(params))
+    addFeed: (params) => dispatch(actions.addFeed(params)),
+    feedSelected: (feed) => dispatch(actions.feedSelected(feed))
   }
 }
 export default connect(stateToProps, dispatchToProps)(Feeds)

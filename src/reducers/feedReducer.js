@@ -1,7 +1,8 @@
 import constants from '../constants'
 
 var initialState = {
-	all: null
+	all: null,
+	selectedFeed: null
 }
 
 export default (state = initialState, action) => {
@@ -20,6 +21,11 @@ export default (state = initialState, action) => {
 			array.unshift(action.data)
 			newState['all'] = array
 			return newState
+
+		case constants.FEED_SELECTED:
+		    console.log('FEED_SELECTED: '+JSON.stringify(action.data))
+			newState['selectedFeed'] = action.data
+			return newState	
 
 		default:
 			return state

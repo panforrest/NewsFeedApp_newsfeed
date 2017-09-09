@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Sidebar } from '../components/presentation'
-import { Feeds } from '../components/containers'
+import { Feeds, Feed } from '../components/containers'
 import actions from '../actions'
 import { connect } from 'react-redux'
 
@@ -46,6 +46,8 @@ class Home extends Component {
   }  
 
 	render(){
+    // let feed = (this.props.feed.selectedFeed == null) ? 'No feed selected' : this.props.feed.selectedFeed 
+
 		return(
 
 
@@ -54,17 +56,7 @@ class Home extends Component {
 		            <div className="inner">
 
                   <section id="banner">
-                    <div className="content">
-                      <header>
-                        <h1>Welcome to NewsFeed</h1>
-                        <hr />
-                        <p>A free and fully responsive site template</p>
-                      </header>
-                      <p>Aenean ornare velit lacus, ac varius enim ullamcorper eu. Proin aliquam facilisis ante interdum congue. Integer mollis, nisl amet convallis, porttitor magna ullamcorper, amet egestas mauris. Ut magna finibus nisi nec lacinia. Nam maximus erat id euismod egestas. Pellentesque sapien ac quam. Lorem ipsum dolor sit nullam.</p>
-                      <ul className="actions">
-                        <li><a href="#" className="button big">Learn More</a></li>
-                      </ul>
-                    </div>
+                    <Feed />
                     
                   </section>
 
@@ -101,14 +93,16 @@ class Home extends Component {
 
 const stateToProps = (state) => {
   return {
-    feed: state.feed
+    feed: state.feed,
+    selectedFeed: state.feed.selectedFeed
   }
 }
 
 const dispatchToProps = (dispatch) => {
   return {
     fetchFeeds: (params) => dispatch(actions.fetchFeeds(params)),  
-    addFeed: (params) => dispatch(actions.addFeed(params))
+    addFeed: (params) => dispatch(actions.addFeed(params)),
+    // feedSelected: (feed) => dispatch(actions.feedSelected(feed))
   }
 }
 export default connect(stateToProps, dispatchToProps)(Home)

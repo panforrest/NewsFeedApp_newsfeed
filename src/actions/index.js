@@ -15,6 +15,13 @@ export default {
 		}
 	},
 
+	feedSelected: (feed) => {
+	  return {
+	    type: constants.FEED_SELECTED,
+	    data: feed
+	  }
+	}
+
 	// fetchUsers: (params) => {
 	// 	return dispatch => {
 	// 		return dispatch(TurboClient.getRequest('user', params, constants.USERS_RECEIVED))
