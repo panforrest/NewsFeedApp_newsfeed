@@ -24,8 +24,13 @@ class Feeds extends Component {
 
   selectFeed(feed, event){
     event.preventDefault()
-    console.log('selectFeed: '+JSON.stringify(feed))
+    // console.log('selectFeed: '+JSON.stringify(feed))
     this.props.feedSelected(feed)
+
+    const items = this.props.rss[feed.url]
+    if (items != null){  //WE ALREADY HAVE THE DATA
+      console.log(JSON.stringify(items))
+    }
 
     const endpoint = 'http://api.rss2json.com/v1/api.json'
     const params = {
@@ -34,19 +39,11 @@ class Feeds extends Component {
 
     this.props.fetchRssFeed(endpoint, params)
     .then(data => {
-      console.log('RSS FEED: ' + JSON.stringify(data))
+      // console.log('RSS FEED: ' + JSON.stringify(data))
     })
     .catch(err => {
       alert('Error: ' + err.message)
     })
-
-    // HTTP.get(endpoint, params)
-    // .then(data => {
-    //   console.log('RSS FEED: ' + JSON.stringify(data))
-    // })
-    // .catch(err => {
-    //   alert('Error: ' + err.message)
-    // })
   }
 
   render(){
@@ -68,7 +65,8 @@ class Feeds extends Component {
 const stateToProps = (state) => {
   return {
     feed: state.feed,
-    selectedFeed: state.feed.selectedFeed
+    selectedFeed: state.feed.selectedFeed,
+    rss: state.rss
   }
 }
 

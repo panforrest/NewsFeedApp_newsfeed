@@ -31635,7 +31635,8 @@ exports.default = function () {
 
   switch (action.type) {
     case _constants2.default.RSS_FEED_RECEIVED:
-      console.log('RSS_FEED_RECEIVED: ' + JSON.stringify(action.data));
+      console.log('RSS_FEED_RECEIVED: ' + JSON.stringify(action.data.feed.url));
+      newState[action.data.feed.url] = action.data.items;
       return newState;
 
     default:
@@ -33673,8 +33674,14 @@ var Feeds = function (_Component) {
     key: 'selectFeed',
     value: function selectFeed(feed, event) {
       event.preventDefault();
-      console.log('selectFeed: ' + JSON.stringify(feed));
+      // console.log('selectFeed: '+JSON.stringify(feed))
       this.props.feedSelected(feed);
+
+      var items = this.props.rss[feed.url];
+      if (items != null) {
+        //WE ALREADY HAVE THE DATA
+        console.log(JSON.stringify(items));
+      }
 
       var endpoint = 'http://api.rss2json.com/v1/api.json';
       var params = {
@@ -33682,18 +33689,10 @@ var Feeds = function (_Component) {
       };
 
       this.props.fetchRssFeed(endpoint, params).then(function (data) {
-        console.log('RSS FEED: ' + JSON.stringify(data));
+        // console.log('RSS FEED: ' + JSON.stringify(data))
       }).catch(function (err) {
         alert('Error: ' + err.message);
       });
-
-      // HTTP.get(endpoint, params)
-      // .then(data => {
-      //   console.log('RSS FEED: ' + JSON.stringify(data))
-      // })
-      // .catch(err => {
-      //   alert('Error: ' + err.message)
-      // })
     }
   }, {
     key: 'render',
@@ -33726,7 +33725,8 @@ var Feeds = function (_Component) {
 var stateToProps = function stateToProps(state) {
   return {
     feed: state.feed,
-    selectedFeed: state.feed.selectedFeed
+    selectedFeed: state.feed.selectedFeed,
+    rss: state.rss
   };
 };
 

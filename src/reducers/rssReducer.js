@@ -9,7 +9,8 @@ export default (state=initialState, action) => {
 
   switch(action.type) {
     case constants.RSS_FEED_RECEIVED:
-      console.log('RSS_FEED_RECEIVED: '+JSON.stringify(action.data))
+      console.log('RSS_FEED_RECEIVED: '+JSON.stringify(action.data.feed.url))
+      newState[action.data.feed.url] = action.data.items
       return newState
 
     default:
