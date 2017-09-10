@@ -33802,7 +33802,13 @@ var Feed = function (_Component) {
 
     value: function render() {
       var selectedFeed = this.props.feed.selectedFeed;
-      var name = selectedFeed ? selectedFeed.name : 'Welcome to NewsFeed';
+      // const name = (selectedFeed) ? selectedFeed.name : 'Welcome to NewsFeed'
+      var name = 'Welcome to NewsFeed';
+      var items = [];
+      if (selectedFeed) {
+        name = selectedFeed.name;
+        items = this.props.rss[selectedFeed.url] ? this.props.rss[selectedFeed.url] : [];
+      }
 
       return _react2.default.createElement(
         'div',
@@ -33815,19 +33821,19 @@ var Feed = function (_Component) {
             null,
             name
           ),
-          _react2.default.createElement('hr', null),
-          _react2.default.createElement(
-            'p',
-            null,
-            'A free and fully responsive site template'
-          )
+          _react2.default.createElement('hr', null)
         ),
         _react2.default.createElement(
-          'p',
+          'ol',
           null,
-          'Aenean ornare velit lacus, ac varius enim ullamcorper eu. Proin aliquam facilisis ante interdum congue. Integer mollis, nisl amet convallis, porttitor magna ullamcorper, amet egestas mauris. Ut magna finibus nisi nec lacinia. Nam maximus erat id euismod egestas. Pellentesque sapien ac quam. Lorem ipsum dolor sit nullam.'
-        ),
-        _react2.default.createElement('ul', { className: 'actions' })
+          items.map(function (item, i) {
+            return _react2.default.createElement(
+              'li',
+              { key: i },
+              item.title
+            );
+          })
+        )
       );
     }
   }]);
@@ -33838,22 +33844,12 @@ var Feed = function (_Component) {
 var stateToProps = function stateToProps(state) {
   return {
     feed: state.feed,
-    selectedFeed: state.feed.selectedFeed
+    rss: state.rss
   };
 };
 
 var dispatchToProps = function dispatchToProps(dispatch) {
-  return {
-    fetchFeeds: function fetchFeeds(params) {
-      return dispatch(_actions2.default.fetchFeeds(params));
-    },
-    addFeed: function addFeed(params) {
-      return dispatch(_actions2.default.addFeed(params));
-    },
-    feedSelected: function feedSelected(feed) {
-      return dispatch(_actions2.default.feedSelected(feed));
-    }
-  };
+  return {};
 };
 exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Feed);
 

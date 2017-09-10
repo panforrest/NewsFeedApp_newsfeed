@@ -13,7 +13,14 @@ class Feed extends Component {
 
   render(){
     const selectedFeed = this.props.feed.selectedFeed
-    const name = (selectedFeed) ? selectedFeed.name : 'Welcome to NewsFeed'
+    // const name = (selectedFeed) ? selectedFeed.name : 'Welcome to NewsFeed'
+    let name = 'Welcome to NewsFeed'
+    let items = []
+    if (selectedFeed) {
+      name = selectedFeed.name
+      items = (this.props.rss[selectedFeed.url]) ? this.props.rss[selectedFeed.url] : []
+    }
+
 
   	return(
       <div className="content">
@@ -21,12 +28,17 @@ class Feed extends Component {
           <h1>{name}</h1>
 
           <hr />
-          <p>A free and fully responsive site template</p>
-        </header>
-        <p>Aenean ornare velit lacus, ac varius enim ullamcorper eu. Proin aliquam facilisis ante interdum congue. Integer mollis, nisl amet convallis, porttitor magna ullamcorper, amet egestas mauris. Ut magna finibus nisi nec lacinia. Nam maximus erat id euismod egestas. Pellentesque sapien ac quam. Lorem ipsum dolor sit nullam.</p>
-        <ul className="actions">
           
-        </ul>
+        </header>
+        <ol>
+          { items.map((item, i) => {
+              return (
+                <li key={i}>{item.title}</li>
+              )
+            })
+          }
+
+        </ol>
       </div>
 
   	)
@@ -37,15 +49,13 @@ class Feed extends Component {
 const stateToProps = (state) => {
   return {
     feed: state.feed,
-    selectedFeed: state.feed.selectedFeed
+    rss: state.rss
   }
 }
 
 const dispatchToProps = (dispatch) => {
   return {
-    fetchFeeds: (params) => dispatch(actions.fetchFeeds(params)),  
-    addFeed: (params) => dispatch(actions.addFeed(params)),
-    feedSelected: (feed) => dispatch(actions.feedSelected(feed))
+
   }
 }
 export default connect(stateToProps, dispatchToProps)(Feed)
