@@ -66,11 +66,11 @@ class Home extends Component {
             <div>
               <div className="inner">
                 <section id="search" className="alt">
-                      <form method="post" action="#">
+                      
                         <input type="text" onChange={this.updateFeed.bind(this, 'name')} value={this.state.feed.name} name="query" placeholder="Search" /><br />
                         <input type="text" onChange={this.updateFeed.bind(this, 'url')} value={this.state.feed.url} name="query" placeholder="Feed URL" /><br />
                         <button type="submit" onClick={this.addFeed.bind(this)}>Add Feed</button>
-                      </form>
+                      
                   </section>
                 
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import actions from '../../actions'
+import { HTTP } from '../../utils'
 
 class Feeds extends Component {
 
@@ -25,6 +26,19 @@ class Feeds extends Component {
     event.preventDefault()
     console.log('selectFeed: '+JSON.stringify(feed))
     this.props.feedSelected(feed)
+
+    const endpoint = 'http://api.rss2json.com/v1/api.json'
+    const params = {
+      rss_url: feed.url
+    }
+
+    HTTP.get(endpoint, params)
+    .then(data => {
+      console.log('RSS FEED: ' + JSON.stringify(data))
+    })
+    .catch(err => {
+      alert('Error: ' + err.message)
+    })
   }
 
   render(){
