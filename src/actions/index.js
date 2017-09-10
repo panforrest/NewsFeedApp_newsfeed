@@ -1,7 +1,31 @@
 import constants from '../constants'
-import { TurboClient } from '../utils'
+import { TurboClient, HTTP } from '../utils'
+
+const getRequest = (endpoint, params, actionType) => {
+	return dispatch => HTTP.get(endpoint, params)
+		.then(data => {
+			if (actionType != null){
+				dispatch({
+					type: actionType,
+					params: params, // can be null
+					data: data
+				})
+			}
+			
+			return data
+		})
+		.catch(err => {
+			throw err
+		})
+}
 
 export default {
+	fetchRssFeed: (url, params) => {
+		return dispatch => {
+			return dispatch(getRequest(url, params, constants.RSS_FEED_RECEIVED))
+
+		}
+	},
 
 	fetchFeeds: (params) => {
 		return dispatch => {

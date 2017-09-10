@@ -4,7 +4,7 @@ import Promose from 'bluebird'
 export default {
 
   get: (url, params) => {
-	return new Promise((resulve, reject) => {
+	return new Promise((resolve, reject) => {
     
       superagent
       .get(url)
@@ -15,7 +15,8 @@ export default {
       	  return
       	}
 
-      	console.log('RESPONSE: '+JSON.stringify(response.body))
+      	// console.log('RESPONSE: '+JSON.stringify(response.body))
+      	resolve(response.body)
       })
 	})
   }

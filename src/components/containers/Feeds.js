@@ -32,13 +32,21 @@ class Feeds extends Component {
       rss_url: feed.url
     }
 
-    HTTP.get(endpoint, params)
+    this.props.fetchRssFeed(endpoint, params)
     .then(data => {
       console.log('RSS FEED: ' + JSON.stringify(data))
     })
     .catch(err => {
       alert('Error: ' + err.message)
     })
+
+    // HTTP.get(endpoint, params)
+    // .then(data => {
+    //   console.log('RSS FEED: ' + JSON.stringify(data))
+    // })
+    // .catch(err => {
+    //   alert('Error: ' + err.message)
+    // })
   }
 
   render(){
@@ -68,7 +76,9 @@ const dispatchToProps = (dispatch) => {
   return {
     fetchFeeds: (params) => dispatch(actions.fetchFeeds(params)),  
     addFeed: (params) => dispatch(actions.addFeed(params)),
-    feedSelected: (feed) => dispatch(actions.feedSelected(feed))
+    feedSelected: (feed) => dispatch(actions.feedSelected(feed)),
+    fetchRssFeed: (url, params) => dispatch(actions.fetchRssFeed(url, params))
+
   }
 }
 export default connect(stateToProps, dispatchToProps)(Feeds)
