@@ -33,7 +33,9 @@ class Feed extends Component {
         <ol>
           { items.map((item, i) => {
               return (
-                <li key={i}>{item.title}</li>
+                <li key={i}>
+                  <a style={style.link} target="_blank" href={item.link}>{item.title}</a>
+                </li>
               )
             })
           }
@@ -43,7 +45,13 @@ class Feed extends Component {
 
   	)
   }
+}
 
+const style = {
+  link: {
+    border: 'none',
+    color: 'blue'
+  }
 }
 
 const stateToProps = (state) => {

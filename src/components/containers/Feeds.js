@@ -31,7 +31,7 @@ class Feeds extends Component {
     if (items != null){  //WE ALREADY HAVE THE DATA
       console.log(JSON.stringify(items))
     }
-
+    //https://api.rss2json.com/v1/api.json
     const endpoint = 'http://api.rss2json.com/v1/api.json'
     const params = {
       rss_url: feed.url
